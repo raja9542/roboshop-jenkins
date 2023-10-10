@@ -1,4 +1,4 @@
-- name: copy config file to jenkins server
+- name: Copy Config File
   ansible.builtin.template:
     src: job.xml
     dest: /tmp/job.xml
