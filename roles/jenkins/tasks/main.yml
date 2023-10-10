@@ -2,3 +2,9 @@
   ansible.builtin.include_tasks: sbranch-pipeline.yml
   loop:
     - { name: "frontend", dir: "CIPipelines"}
+    - { name: "user", dir: "CIPipelines"}
+    - { name: "cart", dir: "CIPipelines"}
+    - { name: "catalogue", dir: "CIPipelines"}
+    - { name: "shipping", dir: "CIPipelines"}
+    - { name: "payment", dir: "CIPipelines"}
+    - { name: "dispatch", dir: "CIPipelines"}
