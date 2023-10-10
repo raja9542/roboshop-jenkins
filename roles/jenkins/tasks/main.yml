@@ -1,5 +1,4 @@
 - name: Apply tags to tasks within included file
-  ansible.builtin.include_tasks:
-    file: sbranch-pipeline.yml
+  ansible.builtin.include_tasks: sbranch-pipeline.yml
   loop:
     - frontend
