@@ -1,16 +1,31 @@
-- name: Copy Config File
-  ansible.builtin.template:
-    src: job.xml
-    dest: /tmp/job.xml
+#- name: Copy Config File
+#  ansible.builtin.template:
+#    src: job.xml
+#    dest: /tmp/job.xml
+#
+#- name: Create a jenkins job
+#  community.general.jenkins_job:
+#    config: "{{ lookup('file', '/tmp/job.xml') }}"
+#    name: test
+#    url: http://172.31.90.201:8080  #private ip of jenkins
+#    user: admin
+#    password: "{{jenkins_password}}"
+#  loop:
+#    - frontend
+#    - catalogue
+#    - cart
 
-- name: Create a jenkins job
-  community.general.jenkins_job:
-    config: "{{ lookup('file', '/tmp/job.xml') }}"
-    name: test
-    url: http://172.31.90.201:8080  #private ip of jenkins
-    user: admin
-    password: "{{jenkins_password}}"
-  loop:
-    - frontend
-    - catalogue
-    - cart
+- name: Create Folders
+  ansible.builtin.include_tasks:
+    file: folders.yml
+  loop: "{{ folders }}"
+
+- name: Create Multibranch Pipeline Jobs
+  ansible.builtin.include_tasks:
+    file: mjob.yml
+  loop: "{{ mjobs }}"
+
+- name: Create Single Branch Pipeline Jobs
+  ansible.builtin.include_tasks:
+    file: sjob.yml
+  loop: "{{ sjobs }}"
