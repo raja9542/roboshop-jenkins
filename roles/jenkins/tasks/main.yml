@@ -11,6 +11,4 @@
     user: admin
     password: "{{jenkins_password}}"
   loop:
-    - frontend
     - catalogue
-    - cart
