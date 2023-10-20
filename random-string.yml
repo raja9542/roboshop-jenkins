@@ -1,0 +1,7 @@
+- name: create random string
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Generate random string
+      ansible.builtin.debug:
+        var: lookup('community.general.random_string')
