@@ -4,4 +4,4 @@
   tasks:
     - name: Generate random string
       ansible.builtin.debug:
-        var: lookup('community.general.random_string')
+        var: lookup('community.general.random_string', special=false)
