@@ -6,9 +6,12 @@ echo '
   "Changes": [{
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "COMPONENT.DOMAIN",
+      "Name": "jenkins.devopsraja66.online",
       "Type": "A",
-      "TTL": 30,
+      "TTL": 15,
       "ResourceRecords": [{ "Value": "IPADDRESS"}]
     }}]
-} ' | sed -e "s/IPADDRESS/${IP}"
+} ' | sed -e "s/IPADDRESS/${IP}/" >/tmp/jenkins.json
+
+ZONE_ID="Z09171912J6RDBH9U9MN3"
+aws route53 change-resource-record-sets --hosted-zone-id ${ZONE_ID} --change-batch file:///tmp/jenkins.json | jq .
