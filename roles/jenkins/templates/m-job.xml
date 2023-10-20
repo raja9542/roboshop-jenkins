@@ -27,7 +27,7 @@
         <data>
             <jenkins.branch.BranchSource>
                 <source class="jenkins.plugins.git.GitSCMSource" plugin="git">
-                    <id>96905ce6-0f4d-42c0-b448-a585f875e82d</id>
+                    <id>{{unique_key}}</id>
                     <remote>https://github.com/raja9542/{{item.name}}</remote>
                     <credentialsId></credentialsId>
                     <traits>
