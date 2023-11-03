@@ -14,4 +14,4 @@
     user: admin
     password: "{{jenkins_password}}"
 
-
+# http://jenkins.devopsraja66.online:8080/multibranch-webhook-trigger/invoke?token=cart/catalogue/...
