@@ -1,21 +1,30 @@
-- name: Check if Job exists or not
-  community.general.jenkins_job_info:
-    name: "{{item.dir}}/{{item.name}}"
-    url: http://172.31.90.201:8080
-    user: admin
-    password: "{{jenkins_password}}"
-  register: out
-  ignore_errors: yes
+#- name: Check if Job exists or not
+#  community.general.jenkins_job_info:
+#    name: "{{item.dir}}/{{item.name}}"
+#    url: http://172.31.90.201:8080
+#    user: admin
+#    password: "{{jenkins_password}}"    # using jenkins_job_info module
+#  register: out
+#  ignore_errors: yes
 
 #- name: debug
 #  ansible.builtin.debug:
 #    msg : "{{out}}"
 
+# using jenkinsCLI
+
+- name: Check if Job Exists or not
+  ansible.builtin.shell:  java -jar /opt/jenkins-cli.jar -auth admin:{{jenkins_password}} -s http://172.31.90.201:8080 -webSocket get-job {{item.dir}}/{{item.name}}
+  register: out
+  ignore_errors: yes
+
+
 - name: Create Job Config file
   ansible.builtin.template:
     src: s-job.xml
     dest: /tmp/s-job.xml
-  when: out.failed | bool
+  when: out.rc == 3
+#  when: out.failed | bool   # using jenkins_job_info module
 
 
 - name: Create Job - "{{item.dir}}/{{item.name}}"
@@ -25,7 +34,8 @@
     url: http://172.31.90.201:8080
     user: admin
     password: "{{jenkins_password}}"
-  when: out.failed | bool
+  when: out.rc == 3
+#  when: out.failed | bool  # using jenkins_job_info module
 
 
 # folder job creation in a same yml file
